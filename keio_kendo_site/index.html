@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>慶應義塾大学理工学部體育會剣道部</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <div class="logo-text">
+                <span class="logo-main">慶應義塾大学</span>
+                <span class="logo-sub">理工学部 體育會 剣道部</span>
+            </div>
+        </a>
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="news.html">ニュース</a></li>
+                <li><a href="results.html">試合結果</a></li>
+                <li><a href="members.html">部員紹介</a></li>
+                <li><a href="schedule.html">スケジュール</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>交剣知愛</h1>
+            <p>慶應義塾大学理工学部體育會剣道部 公式Webサイト</p>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">剣道部について</h2>
+            <p>
+                こんにちは！慶應義塾大学理工学部體育會剣道部（通称リコタイ剣道部）です！学部不問の部活動で、現在は50人ほどの部員が活動しています。初心者から幼少期から剣道を始めた人まで、様々な部員が在籍しています！
+            </p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">最新ニュース</h2>
+            <div class="card-grid" id="news-container">
+                <p style="text-align:center;color:#666;">読み込み中...</p>
+                <!-- Javascript will load news here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Keio University Faculty of Science and Technology Kendo Club.</p>
+        <p style="margin-top:10px; font-size: 0.8rem;"><a href="login.html"
+                style="color: rgba(255,255,255,0.5); text-decoration: none;">管理者ログイン</a></p>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

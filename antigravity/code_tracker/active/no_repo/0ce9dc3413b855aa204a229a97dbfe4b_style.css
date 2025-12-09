@@ -1,0 +1,478 @@
+¨G:root {
+    --primary-color: #001f3f;
+    /* Á¥∫Ëâ≤ - Navy Blue */
+    --accent-color: #b30000;
+    /* Ëµ§Ëâ≤ - Keio Red/Dark Red */
+    --text-color: #333;
+    --bg-color: #f4f4f4;
+    --card-bg: #ffffff;
+    --white: #ffffff;
+    --header-height: 80px;
+    --font-heading: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-body: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-top: var(--header-height);
+}
+
+/* Header & Nav */
+header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.logo:hover {
+    opacity: 0.9;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.logo-main {
+    font-size: 1.2rem;
+}
+
+.logo-sub {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Updated Nav Styles for Hamburger */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a:hover {
+    color: #e0e0e0;
+}
+
+/* Main Layout */
+main {
+    padding: 40px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - var(--header-height) - 100px);
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--primary-color);
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.page-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--accent-color);
+    margin: 10px auto 0;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    border-left: 5px solid var(--accent-color);
+    padding-left: 15px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero Section */
+.hero {
+    height: 400px;
+    background: linear-gradient(rgba(0, 31, 63, 0.4), rgba(0, 31, 63, 0.4)), url('hero_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 40px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Button */
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #900;
+}
+
+/* Admin Form */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Results Table */
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.results-table th,
+.results-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+    /* Prevent ugly wrapping on mobile */
+}
+
+.results-table th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.win-loss.win {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.win-loss.loss {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* News Styles */
+.news-list-top {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.news-card-top {
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.news-card-top:hover {
+    background-color: #f8f9fa;
+    border-left-color: var(--accent-color);
+    transform: translateX(5px);
+}
+
+.news-card-top h3 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+.news-preview-text {
+    font-size: 0.85rem;
+    color: #666;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.news-date {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.news-list-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.news-card-full {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.news-content-short {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #444;
+}
+
+.news-content-full {
+    display: none;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+.news-card-full.expanded .news-content-short {
+    display: none;
+}
+
+.news-card-full.expanded .news-content-full {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.read-more-btn {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.read-more-btn:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* --- Responsive & Mobile Styles --- */
+@media (max-width: 768px) {
+    .header-content {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    /* Mobile Navigation */
+    .menu-toggle {
+        display: block !important;
+        /* Show hamburger button */
+        z-index: 2000;
+        position: relative;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        /* Hidden by default */
+        width: 70%;
+        height: 100vh;
+        background-color: var(--primary-color);
+        padding-top: 80px;
+        transition: right 0.3s ease-in-out;
+        z-index: 1500;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    nav.active {
+        right: 0;
+        /* Slide in */
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 0;
+    }
+
+    nav li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav a {
+        display: block;
+        padding: 20px;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+
+    nav a::after {
+        display: none;
+        /* No underline effect on mobile */
+    }
+
+    /* Adjust page layout for mobile */
+    main {
+        padding: 20px 3%;
+    }
+
+    /* Admin Tabs Grid */
+    .card-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Hamburger Menu Button (Hidden on Desktop) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: white;
+    padding: 5px 15px;
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling on iOS */
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    /* Visual cue */
+}& *cascade08&+*cascade08+b *cascade08bg*cascade08g *cascade08Ò*cascade08ÒÛ *cascade08ÛÙ*cascade08Ùˆ *cascade08ˆ˜*cascade08˜æ	 *cascade08æ	¨
+ *cascade08¨
+Ù *cascade08Ùú*cascade08úÃ *cascade08ÃÕ*cascade08Õœ *cascade08œ–*cascade08–“ *cascade08“”*cascade08”Â *cascade08ÂÊ*cascade08ÊË *cascade08ËÈ*cascade08ÈÎ *cascade08ÎÏ*cascade08Ï€ *cascade08€‹*cascade08‹Ò *cascade08ÒÚ*cascade08Ú˝ *cascade08˝˛*cascade08˛ˇ *cascade08ˇÇ*cascade08ÇÉ *cascade08ÉÑ*cascade08Ñ¯ *cascade08¯˘*cascade08˘˚ *cascade08˚¸*cascade08¸˛ *cascade08˛ˇ*cascade08ˇ≈ *cascade08≈˜*cascade08˜ã# *cascade08ã#ç#*cascade08ç#∆% *cascade08∆%«%*cascade08«%…% *cascade08…% %*cascade08 %Ã% *cascade08Ã%Õ%*cascade08Õ%Ï% *cascade08Ï%Ó%*cascade08Ó%“& *cascade08“&ó'*cascade08ó'ƒ( *cascade08ƒ(∆(*cascade08∆(∫* *cascade08∫*û8 *cascade08û8†8*cascade08†8¢8 *cascade08¢8¶8*cascade08¶8ß8 *cascade08ß8±8 *cascade08±8≈8*cascade08≈8Ó8 *cascade08Ó8§9*cascade08§9Œ9 *cascade08Œ9–9*cascade08–9‘9 *cascade08‘9ﬂ9*cascade08ﬂ9·9 *cascade08·99*cascade089Ò9 *cascade08Ò9ı9*cascade08ı9ˆ9 *cascade08ˆ9˚9*cascade08˚9¸9 *cascade08¸9˝9*cascade08˝9í: *cascade08í:†:*cascade08†:°: *cascade08°:√:*cascade08√:≈: *cascade08≈:◊:*cascade08◊:ÿ: *cascade08ÿ:“;*cascade08“;”; *cascade08”;‹;*cascade08‹;‡; *cascade08‡;·<*cascade08·<‚< *cascade08‚<ı<*cascade08ı<ˆ< *cascade08ˆ<˙<*cascade08˙<˚< *cascade08˚<É=*cascade08É=Ö= *cascade08Ö=è=*cascade08è=ë= *cascade08ë=£>*cascade08£>§> *cascade08§>ß>*cascade08ß>®> *cascade08®>§?*cascade08§?¶? *cascade08¶?é@*cascade08é@è@ *cascade08è@ü@*cascade08ü@°@ *cascade08°@ùA*cascade08ùAûA *cascade08ûA¬A*cascade08¬A√A *cascade08√A–A*cascade08–A—A *cascade08—AÿA*cascade08ÿAŸA *cascade08ŸA‘B*cascade08‘B◊B *cascade08◊BÚB*cascade08ÚBÛB *cascade08ÛB˝B*cascade08˝B˛B *cascade08˛BÄC*cascade08ÄCÅC *cascade08ÅC‹C*cascade08‹CÂC *cascade08ÂCÊC*cascade08ÊCÈC *cascade08ÈCÑD*cascade08ÑDâD *cascade08âDôD*cascade08ôDùD *cascade08ùD¬D*cascade08¬DƒD *cascade08ƒD’D*cascade08’D◊D*cascade08◊D€D *cascade08€DëE*cascade08ëEíE *cascade08íEîE*cascade08îEïE *cascade08ïEùE*cascade08ùEüE *cascade08üEŒE*cascade08ŒE—E *cascade08—EÁE*cascade08ÁEÓE *cascade08ÓEÙE*cascade08ÙEıE *cascade08ıE¸E*cascade08¸EˇE *cascade08ˇEçF*cascade08çFèF *cascade08èFúF*cascade08úFùF *cascade08ùF£F*cascade08£F§F *cascade08§FßF*cascade08ßF®F *cascade08®F©F*cascade08©F™F *cascade08™F´F*cascade08´F¨F *cascade08¨FØF*cascade08ØF∞F *cascade08∞F≥F*cascade08≥F¥F *cascade08¥F∆F*cascade08∆F«F *cascade08«F»F*cascade08»F…F *cascade08…F F*cascade08 FÀF *cascade08ÀF‘F*cascade08‘F’F *cascade08’FÎF*cascade08ÎFÏF *cascade08ÏFÄG*cascade08ÄGÇG *cascade08ÇGíG*cascade08íGôG *cascade08ôG©G*cascade08©G¨G *cascade08¨G¨G*cascade082Cfile:///c:/Users/Naohiro%20Tanabe/.gemini/keio_kendo_site/style.css

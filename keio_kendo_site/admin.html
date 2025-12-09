@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者 - 慶應義塾大学理工学部體育會剣道部</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .admin-tab {
+            padding: 10px 20px;
+            background: #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .admin-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-list {
+            list-style: none;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            padding: 10px;
+        }
+
+        .admin-list li {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <div class="logo-text">
+                <span class="logo-main">慶應義塾大学</span>
+                <span class="logo-sub">理工学部 體育會 剣道部 管理画面</span>
+            </div>
+        </a>
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html" target="_blank">サイトを確認</a></li>
+                <li><button onclick="logout()"
+                        style="background:none;border:1px solid white;color:white;padding:5px 10px;cursor:pointer;">ログアウト</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="page-title">サイト管理</h1>
+
+        <div class="admin-tabs">
+            <div class="admin-tab active" data-target="news">ニュース</div>
+            <div class="admin-tab" data-target="results">試合結果</div>
+            <div class="admin-tab" data-target="members">部員</div>
+            <div class="admin-tab" data-target="schedule">スケジュール</div>
+        </div>
+
+        <!-- NEWS EDITOR -->
+        <div id="section-news" class="admin-section" style="display:block;">
+            <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <h3>ニュース追加</h3>
+                    <form id="form-news">
+                        <div class="form-group">
+                            <label>日付</label>
+                            <input type="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>タイトル</label>
+                            <input type="text" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>内容</label>
+                            <textarea name="content" style="width:100%;padding:10px;border:1px solid #ddd;" rows="3"
+                                required></textarea>
+                        </div>
+                        <button class="btn" style="width:100%;">追加</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>登録済みニュース</h3>
+                    <ul id="list-news" class="admin-list">
+                        <p>読み込み中...</p>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTS EDITOR -->
+        <div id="section-results" class="admin-section">
+            <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <h3>試合結果追加</h3>
+                    <form id="form-result">
+                        <div class="form-group">
+                            <label>日付</label>
+                            <input type="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>大会名</label>
+                            <input type="text" name="tournament" required>
+                        </div>
+                        <div class="form-group">
+                            <label>詳細</label>
+                            <input type="text" name="detail" placeholder="例：男子団体 2回戦">
+                        </div>
+                        <div class="form-group">
+                            <label>対戦相手</label>
+                            <input type="text" name="opponent" required>
+                        </div>
+                        <div class="form-group">
+                            <label>結果</label>
+                            <select name="result">
+                                <option>勝</option>
+                                <option>負</option>
+                                <option>引分</option>
+                                <option>上位入賞</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>スコア</label>
+                            <input type="text" name="score" placeholder="3 - 2" required>
+                        </div>
+                        <button class="btn" style="width:100%;">追加</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>登録済み試合</h3>
+                    <div class="table-responsive">
+                        <table class="results-table">
+                            <tbody id="results-body" class="admin-preview">
+                                <tr>
+                                    <td>読み込み中...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEMBERS EDITOR -->
+        <div id="section-members" class="admin-section">
+            <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <h3>部員追加</h3>
+                    <form id="form-member">
+                        <div class="form-group">
+                            <label>区分</label>
+                            <select name="group">
+                                <option value="officer">幹部・4年</option>
+                                <option value="grade3">3年</option>
+                                <option value="grade2">2年</option>
+                                <option value="grade1">1年</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>役職（なければ「部員」）</label>
+                            <input type="text" name="role" value="部員">
+                        </div>
+                        <div class="form-group">
+                            <label>名前</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>学部・学科</label>
+                            <input type="text" name="dept" required>
+                        </div>
+                        <div class="form-group">
+                            <label>一言コメント</label>
+                            <input type="text" name="comment">
+                        </div>
+                        <button class="btn" style="width:100%;">追加</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>登録済み部員</h3>
+                    <ul id="list-members" class="admin-list">
+                        <p>読み込み中...</p>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCHEDULE EDITOR -->
+        <div id="section-schedule" class="admin-section">
+            <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <h3>予定追加</h3>
+                    <form id="form-schedule">
+                        <div class="form-group">
+                            <label>月</label>
+                            <select name="month">
+                                <option>4月</option>
+                                <option>5月</option>
+                                <option>6月</option>
+                                <option>7月</option>
+                                <option>8月</option>
+                                <option>9月</option>
+                                <option>10月</option>
+                                <option>11月</option>
+                                <option>12月</option>
+                                <option>1月</option>
+                                <option>2月</option>
+                                <option>3月</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>イベント名</label>
+                            <input type="text" name="event" required>
+                        </div>
+                        <div class="form-group">
+                            <label>種類</label>
+                            <select name="type">
+                                <option value="match">試合</option>
+                                <option value="camp">合宿</option>
+                                <option value="other">行事・その他</option>
+                            </select>
+                        </div>
+                        <button class="btn" style="width:100%;">追加</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>登録済み予定</h3>
+                    <ul id="list-schedule" class="admin-list">
+                        <p>読み込み中...</p>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

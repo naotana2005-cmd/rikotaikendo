@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>試合結果 - 慶應義塾大学理工学部體育會剣道部</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <div class="logo-text">
+                <span class="logo-main">慶應義塾大学</span>
+                <span class="logo-sub">理工学部 體育會 剣道部</span>
+            </div>
+        </a>
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="news.html">ニュース</a></li>
+                <li><a href="results.html">試合結果</a></li>
+                <li><a href="members.html">部員紹介</a></li>
+                <li><a href="schedule.html">スケジュール</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="page-title">試合結果</h1>
+
+        <section class="section">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>日付</th>
+                                <th>大会名</th>
+                                <th>詳細</th>
+                                <th>対戦相手</th>
+                                <th>勝敗</th>
+                                <th>スコア</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                            <tr>
+                                <td colspan="6" style="text-align:center;">読み込み中...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Keio University Faculty of Science and Technology Kendo Club.</p>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

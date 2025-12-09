@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>年間スケジュール - 慶應義塾大学理工学部體育會剣道部</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .schedule-list {
+            list-style: none;
+        }
+
+        .schedule-item {
+            display: flex;
+            padding: 15px;
+            background: white;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        .schedule-event {
+            flex-grow: 1;
+        }
+
+        .schedule-tag {
+            background-color: #eee;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .tag-match {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .tag-camp {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .tag-other {
+            background-color: #f5f5f5;
+            color: #616161;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <div class="logo-text">
+                <span class="logo-main">慶應義塾大学</span>
+                <span class="logo-sub">理工学部 體育會 剣道部</span>
+            </div>
+        </a>
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="news.html">ニュース</a></li>
+                <li><a href="results.html">試合結果</a></li>
+                <li><a href="members.html">部員紹介</a></li>
+                <li><a href="schedule.html">スケジュール</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="page-title">年間スケジュール</h1>
+
+        <section class="section">
+            <div class="card">
+                <ul class="schedule-list" id="schedule-container">
+                    <p style="text-align:center;padding:20px;">読み込み中...</p>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Keio University Faculty of Science and Technology Kendo Club.</p>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

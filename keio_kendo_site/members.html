@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部員紹介 - 慶應義塾大学理工学部體育會剣道部</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .member-card {
+            text-align: center;
+        }
+
+        .member-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 2rem;
+            border: 3px solid var(--primary-color);
+        }
+
+        .member-role {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .member-name {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <div class="logo-text">
+                <span class="logo-main">慶應義塾大学</span>
+                <span class="logo-sub">理工学部 體育會 剣道部</span>
+            </div>
+        </a>
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="news.html">ニュース</a></li>
+                <li><a href="results.html">試合結果</a></li>
+                <li><a href="members.html">部員紹介</a></li>
+                <li><a href="schedule.html">スケジュール</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="page-title">部員紹介</h1>
+
+        <div id="members-container">
+            <p style="text-align:center;width:100%;">読み込み中...</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Keio University Faculty of Science and Technology Kendo Club.</p>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
