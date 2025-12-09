@@ -77,6 +77,7 @@
             <div class="admin-tab" data-target="results">試合結果</div>
             <div class="admin-tab" data-target="members">部員</div>
             <div class="admin-tab" data-target="schedule">スケジュール</div>
+            <div class="admin-tab" data-target="intro">紹介文</div>
         </div>
 
         <!-- NEWS EDITOR -->
@@ -250,6 +251,22 @@
                         <p>読み込み中...</p>
                     </ul>
                 </div>
+            </div>
+        </div>
+
+        <!-- INTRO EDITOR -->
+        <div id="section-intro" class="admin-section">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h3>トップページの紹介文管理</h3>
+                <form id="form-intro">
+                    <div class="form-group">
+                        <label>現在の紹介文</label>
+                        <textarea id="intro-text-input" name="introduction" rows="10"
+                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; line-height: 1.6;"
+                            required></textarea>
+                    </div>
+                    <button class="btn" style="width:100%;">紹介文を更新保存</button>
+                </form>
             </div>
         </div>
 
