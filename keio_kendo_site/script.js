@@ -325,9 +325,30 @@ async function loadSchedule() {
             schedule.push({ id: doc.id, ...doc.data() });
         });
 
-        // Sort
+        // Sort: Closer order starting from current month
         const monthOrder = { '4月': 1, '5月': 2, '6月': 3, '7月': 4, '8月': 5, '9月': 6, '10月': 7, '11月': 8, '12月': 9, '1月': 10, '2月': 11, '3月': 12 };
-        schedule.sort((a, b) => (monthOrder[a.month] || 99) - (monthOrder[b.month] || 99));
+
+        // Get current month in "Academic Year Index" (4月=1 ... 3月=12)
+        const now = new Date();
+        const currentMonthVal = now.getMonth() + 1; // 1-12
+        // Convert real month to academic index (e.g. 4->1, 12->9, 1->10)
+        let currentAcademicIndex = currentMonthVal >= 4 ? currentMonthVal - 3 : currentMonthVal + 9;
+
+        schedule.sort((a, b) => {
+            let orderA = monthOrder[a.month] || 99;
+            let orderB = monthOrder[b.month] || 99;
+
+            // If the month is "before" the current month in the list, move it to the end (treat as next year's cycle or passed)
+            // But wait, user wants "Dec -> Jan -> Feb". 
+            // If currently Dec (index 9), then Dec(9), Jan(10).. Mar(12) are upcoming.
+            // Apr(1)..Nov(8) are passed.
+            // So if order < currentAcademicIndex, add 12 to the score.
+
+            if (orderA < currentAcademicIndex) orderA += 12;
+            if (orderB < currentAcademicIndex) orderB += 12;
+
+            return orderA - orderB;
+        });
 
         const container = document.getElementById('schedule-container');
         if (container) {
