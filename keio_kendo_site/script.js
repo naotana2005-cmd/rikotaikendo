@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAqtoFiXLTJNcmQPTpOr5QAidCT07v7HGA",
@@ -99,98 +99,54 @@ async function loadIntroduction() {
 
     try {
         const docRef = doc(db, "siteContent", "homePage");
-        const docSnap = await getDocs(query(collection(db, "siteContent"))); // workaround to check connection, or just get doc
-        // Actually simpler:
-        // Because getDoc is not imported, let's look at imports.
-        // I need to import getDoc. But I can use getDocs on a collection too.
-        // Let's stick to the existing pattern or Fix imports.
-        // User's code used getDocs. I'll use it to find the doc.
+        const docSnap = await getDoc(docRef);
 
-        // Better: I added setDoc and doc. I should import getDoc too if I want it,
-        // but let's just use what I have or standard ways.
-        // I'll assume getDoc is available if I change import line carefully.
-        // WAIT: The previous tool call failed, so I'm rewriting the file from scratch roughly?
-        // No, I am using replace.
-        // Let's implement loadIntro fetching the specific doc.
+        if (docSnap.exists() && docSnap.data().introduction) {
+            introEl.textContent = docSnap.data().introduction;
+        } else {
+            // Default text if db is empty or not set
+            introEl.textContent = "こんにちは！慶應義塾大学理工学部體育會剣道部（通称リコタイ剣道部）です！学部不問の部活動で、現在は50人ほどの部員が活動しています。初心者から幼少期から剣道を始めた人まで、様々な部員が在籍しています！";
+        }
     } catch (e) {
-        // Fallback already handled by HTML default? No, I replaced it with loading...
-        // If fail, put back default text
-        introEl.textContent = "こんにちは！慶應義塾大学理工学部體育會剣道部（通称リコタイ剣道部）です！学部不問の部活動で、現在は50人ほどの部員が活動しています。初心者から幼少期から剣道を始めた人まで、様々な部員が在籍しています！";
-    }
-}
-// Rethinking: I need to write the full implementation cleanly.
-
-// ... (News, Results, Members, Schedule functions remain same, omitted for brevity in thought) ...
-
-/* --- Admin Functions --- */
-
-function setupAdminTabs() {
-    const tabs = document.querySelectorAll('.admin-tab');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // UI Update
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-
-            // Show Section
-            document.querySelectorAll('.admin-section').forEach(s => s.style.display = 'none');
-            document.getElementById(`section-${tab.dataset.target}`).style.display = 'block';
-        });
-    });
-
-    // Attach form listeners
-    document.getElementById('form-news').addEventListener('submit', (e) => addItem(e, 'news'));
-    document.getElementById('form-result').addEventListener('submit', (e) => addItem(e, 'results'));
-    document.getElementById('form-member').addEventListener('submit', (e) => addItem(e, 'members'));
-    document.getElementById('form-schedule').addEventListener('submit', (e) => addItem(e, 'schedule'));
-
-    // Intro Form
-    const introForm = document.getElementById('form-intro');
-    if (introForm) {
-        introForm.addEventListener('submit', saveIntroduction);
+        console.error("Error loading intro: ", e);
+        // Keep default text in HTML or set fallback
     }
 }
 
-function loadAdminData() {
-    loadNews();
-    loadResults();
-    loadMembers();
-    loadSchedule();
-    loadAdminIntroduction();
+async function loadAdminIntroduction() {
+    const inputEl = document.getElementById('intro-text-input');
+    if (!inputEl) return;
+
+    try {
+        const docRef = doc(db, "siteContent", "homePage");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists() && docSnap.data().introduction) {
+            inputEl.value = docSnap.data().introduction;
+        }
+    } catch (e) {
+        console.error("Error loading admin intro: ", e);
+    }
 }
 
-// ... (addItem, deleteItem functions) ...
-
-// New Intro Functions
-import { getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-// I can't add import mid-file. I must update the top import.
-
-
-
-/* --- Authentication --- */
-function handleLogin(e) {
+async function saveIntroduction(e) {
     e.preventDefault();
-    const password = document.getElementById('password').value;
-    if (password === ADMIN_PASSWORD) {
-        sessionStorage.setItem('isAdmin', 'true');
-        window.location.href = 'admin.html';
-    } else {
-        alert('パスワードが間違っています');
+    const text = document.getElementById('intro-text-input').value;
+
+    try {
+        await setDoc(doc(db, "siteContent", "homePage"), {
+            introduction: text,
+            updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        alert("紹介文を更新しました！");
+    } catch (e) {
+        console.error("Error saving intro: ", e);
+        alert("更新に失敗しました。");
     }
 }
 
-function checkAuth() {
-    if (!sessionStorage.getItem('isAdmin')) {
-        window.location.href = 'login.html';
-    }
-}
-
-window.logout = function () {
-    sessionStorage.removeItem('isAdmin');
-    window.location.href = 'index.html';
-}
-
-/* --- Data Loading (Firestore) --- */
+// --- Other Data Loading ---
 
 async function loadNews() {
     try {
@@ -319,7 +275,9 @@ async function loadMembers() {
             const officers = members.filter(m => m.group === 'officer');
             const others = members.filter(m => m.group !== 'officer');
 
-            // Custom sort might be needed here, simple load for now
+            // Sort by group if needed, but filter handles main separation
+            // Could assume Firestore returns in some order or sort by name
+
             let html = '';
             if (officers.length > 0) {
                 html += `<h2 class="section-title">幹部・4年生</h2><div class="card-grid">`;
@@ -423,6 +381,12 @@ function setupAdminTabs() {
     document.getElementById('form-result').addEventListener('submit', (e) => addItem(e, 'results'));
     document.getElementById('form-member').addEventListener('submit', (e) => addItem(e, 'members'));
     document.getElementById('form-schedule').addEventListener('submit', (e) => addItem(e, 'schedule'));
+
+    // Intro Form
+    const introForm = document.getElementById('form-intro');
+    if (introForm) {
+        introForm.addEventListener('submit', saveIntroduction);
+    }
 }
 
 function loadAdminData() {
@@ -430,6 +394,7 @@ function loadAdminData() {
     loadResults();
     loadMembers();
     loadSchedule();
+    loadAdminIntroduction();
 }
 
 async function addItem(e, collectionName) {
