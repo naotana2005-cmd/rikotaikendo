@@ -389,13 +389,12 @@ footer {
 
     /* Hero adjustment for mobile */
     .hero {
-        height: 200px;
-        /* 縦幅を狭く */
-        background-size: contain;
-        /* 画像全体を表示 */
+        height: 200px !important;
+        background-size: contain !important;
+        /* Force prevent clipping */
         background-repeat: no-repeat;
         background-color: var(--primary-color);
-        /* 余白はテーマカラーで埋める */
+        background-image: url('hero_bg.jpg');
     }
 
     .hero h1 {
