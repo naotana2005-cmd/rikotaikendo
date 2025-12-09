@@ -387,7 +387,7 @@ footer {
         width: 100%;
     }
 
-    /* Hero adjustment for mobile */
+    /* Hero adjustment for mobile - v3 forced update */
     .hero {
         height: 200px !important;
         background-size: contain !important;
