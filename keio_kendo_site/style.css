@@ -170,33 +170,46 @@ main {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Hero Section */
+/* Hero Section (Updated for img tag) */
 .hero {
-    height: 400px;
-    background: linear-gradient(rgba(0, 31, 63, 0.4), rgba(0, 31, 63, 0.4)), url('hero_bg.jpg');
-    background-size: cover;
-    /* Default for PC */
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 40px;
+    background: var(--primary-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 500px;
+    /* PCでの最大高さ */
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     color: white;
-    border-radius: 12px;
-    margin-bottom: 40px;
+    width: 100%;
+    padding: 0 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .hero h1 {
     font-size: 3rem;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
     font-size: 1.2rem;
     max-width: 600px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    margin: 0 auto;
 }
 
 /* Button */
@@ -387,18 +400,28 @@ footer {
         width: 100%;
     }
 
-    /* Hero adjustment for mobile - v3 forced update */
+    /* Hero adjustment for mobile (Img tag version) */
     .hero {
-        height: 200px !important;
-        background-size: contain !important;
-        /* Force prevent clipping */
-        background-repeat: no-repeat;
-        background-color: var(--primary-color);
-        background-image: url('hero_bg.jpg');
+        height: auto !important;
+        background: none !important;
+        border-radius: 0;
+        /* スマホでは角丸をなくして画面いっぱいにする */
+    }
+
+    .hero-image {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        /* 絶対に見切れさせず、縦横比を維持 */
+        max-height: none;
     }
 
     .hero h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
     }
 
     /* Mobile Navigation */
